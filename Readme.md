@@ -30,14 +30,13 @@ Installation
 
 To set up the project locally, follow these steps:
 
-1.  Bashgit clone https://github.com/topics/real-time-chat-appUse codeÂ [with caution.](https://gemini.google.com/faq#coding)content\_copy
+1.  git clone https://github.com/topics/real-time-chat-app
     
-2.  Bashpip install -r requirements.txtUse codeÂ [with caution.](https://gemini.google.com/faq#coding)content\_copy
+2.  pip install -r requirements.txt
     
-3.  Bashpython manage.py migrateUse codeÂ [with caution.](https://gemini.google.com/faq#coding)content\_copy
+3.  python manage.py migrate
     
-4.  Bashpython manage.py runserverUse codeÂ [with caution.](https://gemini.google.com/faq#coding)content\_copy
-    
+4.  python manage.py runserver
 
 Usage
 -----
