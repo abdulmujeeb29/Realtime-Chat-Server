@@ -1,0 +1,43 @@
+<!-- group_chat.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Chat</title>
+</head>
+<body>
+    <h1>Group Chat</h1>
+    <div id="messages-container">
+        <!-- Messages will be displayed here -->
+    </div>
+    <form id="message-form">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button type="submit">Send</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Function to fetch messages from the server
+        function fetchMessages() {
+            // Implement AJAX request to fetch messages
+        }
+
+        // Function to send a message to the server
+        function sendMessage(messageContent) {
+            // Implement AJAX request to send message
+        }
+
+        // Set up event listener for form submission
+        $('#message-form').submit(function(event) {
+            event.preventDefault();
+            let messageContent = $('#message-input').val();
+            sendMessage(messageContent);
+            $('#message-input').val(''); // Clear input field after sending message
+        });
+
+        // Fetch messages periodically
+        setInterval(fetchMessages, 3000); // Fetch messages every 3 seconds
+    </script>
+</body>
+</html>

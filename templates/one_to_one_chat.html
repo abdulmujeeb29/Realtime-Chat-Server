@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One-to-One Chat</title>
+</head>
+<body>
+    <h1>One-to-One Chat</h1>
+
+    <!-- Display list of registered users -->
+    <h2>Registered Users:</h2>
+    <ul id="users-list">
+        <!-- User list items will be dynamically added here -->
+    </ul>
+
+    <!-- Messages container -->
+    <div id="messages-container">
+        <!-- Messages will be displayed here -->
+    </div>
+
+    <!-- Message form -->
+    <form id="message-form">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <select id="recipient-select">
+            <!-- Options for selecting recipient -->
+        </select>
+        <button type="submit">Send</button>
+    </form>
+
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Script for fetching users and sending messages -->
+    <script>
+        // Function to fetch list of registered users
+        function fetchUsers() {
+            $.ajax({
+                url: '/api/users/', // Update the endpoint URL to match your Django API URL
+                method: 'GET',
+                success: function(users) {
+                    // Clear the users list
+                    $('#users-list').empty();
+
+                    // Append each user to the users list
+                    users.forEach(function(user) {
+                        $('#users-list').append(`<li>${user.username}</li>`);
+                    });
+
+                    // Populate the recipient select options for sending messages
+                    $('#recipient-select').empty();
+                    users.forEach(function(user) {
+                        $('#recipient-select').append(`<option value="${user.id}">${user.username}</option>`);
+                    });
+                },
+                error: function(xhr, textStatus, error) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
+        // Function to send a message
+        function sendMessage() {
+            var recipientId = $('#recipient-select').val();
+            var messageContent = $('#message-input').val();
+
+            $.ajax({
+                url: '/api/messages/',
+                method: 'POST',
+                data: {
+                    recipient_id: recipientId,
+                    content: messageContent
+                },
+                success: function(response) {
+                    // Do something after successfully sending the message
+                    console.log('Message sent successfully');
+                },
+                error: function(xhr, textStatus, error) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
+        // Fetch users when the page loads
+        $(document).ready(function() {
+            fetchUsers();
+
+            // Bind submit event to message form
+            $('#message-form').submit(function(event) {
+                event.preventDefault(); // Prevent form submission
+                sendMessage(); // Call the sendMessage function
+                $('#message-input').val(''); // Clear the message input
+            });
+        });
+    </script>
+</body>
+</html>
